@@ -2,7 +2,7 @@ name: Kishor Magazine Updates
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/10 * * * *'   # every 10 minutes - most reliable short interval on GitHub
   workflow_dispatch:
 
 permissions:
@@ -12,6 +12,7 @@ permissions:
 jobs:
   check-updates:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
