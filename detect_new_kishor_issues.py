@@ -53,6 +53,11 @@ def get_ist_now():
     ist_now = utc_now + datetime.timedelta(hours=5, minutes=30)
     return ist_now
 
+def get_clock_emoji(hour: int) -> str:
+    """Return correct clock emoji according to the hour (0-23)."""
+    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+    return clocks[hour % 12]
+
 def main():
     try:
         # === 1. Check status file ===
@@ -114,8 +119,9 @@ def main():
             num = len(new_issues)
             date_str = ist_now.strftime("%d/%m/%Y")
             time_str = ist_now.strftime("%H:%M:%S")
+            clock_emoji = get_clock_emoji(ist_now.hour)
 
-            header = f"🤖 <b>Kishor Updates Notifications</b>\n\n📖 {num} New Magazine Issues Detected\n(after last detected <b>{last_detected}</b>)\n\n📆 <b>Date:</b> {date_str}\n🕖 <b>Time:</b> {time_str}\n\n"
+            header = f"🤖 <b>Kishor Updates Notifications</b>\n\n📖 {num} New Magazine Issues Detected\n(after last detected <b>{last_detected}</b>)\n\n📆 <b>Date:</b> {date_str}\n{clock_emoji} <b>Time:</b> {time_str}\n\n"
 
             body = ""
             for fname, size, url in new_issues:
@@ -125,7 +131,7 @@ def main():
                 eng = eng_months[mon_idx]
                 mar = mar_months[mon_idx]
                 year_dev = str(year).translate(devanagari_digits)
-                title = f"`किशोर {mar} {year_dev} - Kishor {eng} {year}.pdf`"
+                title = f"किशोर {mar} {year_dev} - Kishor {eng} {year}.pdf"
                 body += f"{title} <b>({fname} • {size:.2f} MB)</b>\n{url}\n\n"
 
             full_message = header + body
@@ -148,7 +154,7 @@ def main():
             print("[DEBUG] No new issues found this run.")
 
     except Exception as e:
-        # Full traceback for Telegram only (as you requested)
+        # Full traceback for Telegram only
         tb = traceback.format_exc()
         error_msg = f"""🤖 <b>Kishor Updates Notifications</b>
 
@@ -165,7 +171,7 @@ def main():
         except:
             pass
 
-        # NO GitHub Issue creation (removed completely as requested)
+        # NO GitHub Issue creation
         with open(STATUS_FILE, "w", encoding="utf-8") as f:
             f.write("paused\n# Edit to 'active' and commit to resume.")
         git_commit_and_push("❌ Paused due to error", files=[STATUS_FILE])
