@@ -3,7 +3,6 @@
 **GitHub Actions bot** that sends beautiful Telegram notifications every time a new Kishor magazine issue is published on [ebalbharati.in](https://kishor.ebalbharati.in/Archives/).
 
 ### Features
-- Checks every 5 minutes (GitHub cron – small natural delay is normal)
 - Detects new PDFs using direct file checks (robust against website changes)
 - Beautiful formatted notifications with Marathi + English titles, size and direct links
 - Full public history in `updates-history.md`
