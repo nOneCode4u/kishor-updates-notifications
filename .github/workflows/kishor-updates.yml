@@ -2,7 +2,7 @@ name: Kishor Magazine Updates
 
 on:
   schedule:
-    - cron: '*/10 * * * *'   # every 10 minutes - most reliable short interval on GitHub
+    - cron: '*/15 * * * *'   # every 15 minutes - most reliable short interval on GitHub
   workflow_dispatch:
 
 permissions:
