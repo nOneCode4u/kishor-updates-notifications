@@ -131,7 +131,7 @@ def main():
                 eng = eng_months[mon_idx]
                 mar = mar_months[mon_idx]
                 year_dev = str(year).translate(devanagari_digits)
-                title = f"किशोर {mar} {year_dev} - Kishor {eng} {year}.pdf"
+                title = f"`किशोर {mar} {year_dev} - Kishor {eng} {year}.pdf`"
                 body += f"{title} <b>({fname} • {size:.2f} MB)</b>\n{url}\n\n"
 
             full_message = header + body
