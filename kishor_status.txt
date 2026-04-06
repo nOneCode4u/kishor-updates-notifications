@@ -1,2 +1,2 @@
-active
+paused
 # Edit to 'active' and commit to resume.
